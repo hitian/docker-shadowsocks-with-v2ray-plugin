@@ -1,6 +1,6 @@
 FROM golang:alpine as builder
 
-RUN apk add git build-base
+RUN apk add git build-base && go version
 RUN git clone https://github.com/shadowsocks/v2ray-plugin.git /tmp/v2ray-plugin
 RUN cd /tmp/v2ray-plugin && GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o /go/bin/v2ray-plugin
 

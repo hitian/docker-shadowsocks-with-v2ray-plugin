@@ -5,7 +5,7 @@ workflow "Build and push to docker hub" {
 
 action "Build docker image" {
   uses = "docker://docker:stable"
-  args = [ "build", "-t", "hitian/ss-v2ray-plugin:dev", "."]
+  args = [ "build", "-t", "hitian/ss-v2ray-plugin:latest", "."]
 }
 
 action "Login docker hub" {
