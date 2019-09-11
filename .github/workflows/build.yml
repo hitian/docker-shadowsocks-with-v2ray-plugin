@@ -1,0 +1,24 @@
+on:
+  push:
+    branches:
+    - master
+name: Build and push to docker hub
+jobs:
+  BuildAndPush:
+    name: build and push
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Login docker hub
+      uses: actions/docker/login@master
+      env:
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+    - name: Build docker image
+      uses: docker://docker:stable
+      with:
+        args: build -t hitian/ss-v2ray-plugin:latest .
+    - name: Push docker image to docker hub
+      uses: docker://docker:stable
+      with:
+        args: push hitian/ss-v2ray-plugin
