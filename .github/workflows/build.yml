@@ -9,16 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: Login docker hub
-      uses: actions/docker/login@master
+    - name: build and push to dockerhub
+      run: |
+        docker version
+        docker build -t hitian/ss-v2ray-plugin:latest .
+        echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
+        docker push hitian/ss-v2ray-plugin
       env:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-    - name: Build docker image
-      uses: docker://docker:stable
-      with:
-        args: build -t hitian/ss-v2ray-plugin:latest .
-    - name: Push docker image to docker hub
-      uses: docker://docker:stable
-      with:
-        args: push hitian/ss-v2ray-plugin
