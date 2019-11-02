@@ -1,5 +1,9 @@
 # Changelog
 
+## 2019-11-02
+
+### shadowsocks-libev 3.3.3
+
 ## 2019-10-12
 
 ### shadowsocks-libev 3.3.2
