@@ -1,5 +1,9 @@
 # Changelog
 
+## 2020-02-06
+
+### v2ray-plugin 1.3.0
+
 ## 2020-01-10
 
 ### shadowsocks-libev 3.3.4
