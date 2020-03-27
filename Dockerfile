@@ -4,8 +4,13 @@ RUN apk add git build-base && go version
 RUN git clone https://github.com/shadowsocks/v2ray-plugin.git /tmp/v2ray-plugin
 RUN cd /tmp/v2ray-plugin && GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o /go/bin/v2ray-plugin
 
+FROM rust:alpine as qtun
+RUN apk add g++
+RUN RUSTFLAGS="-C target-feature=-crt-static" cargo install --git https://github.com/shadowsocks/qtun
+
 FROM alpine
 COPY --from=builder /go/bin/v2ray-plugin /bin
+COPY --from=qtun /usr/local/cargo/bin/qtun-* /bin/
 RUN apk add --no-cache ca-certificates build-base git autoconf automake gettext pcre-dev libtool asciidoc xmlto udns-dev c-ares-dev libev-dev libsodium-dev mbedtls-dev linux-headers && \
     git clone https://github.com/shadowsocks/shadowsocks-libev /tmp/shadowsocks-libev && \
     cd /tmp/shadowsocks-libev && git submodule update --init --recursive && \

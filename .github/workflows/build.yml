@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-    - master
+    - qtun
 name: Build and push to docker hub
 jobs:
   BuildAndPush:
@@ -12,7 +12,7 @@ jobs:
     - name: build and push to dockerhub
       run: |
         docker version
-        docker build -t hitian/ss-v2ray-plugin:latest .
+        docker build -t hitian/ss-v2ray-plugin:qtun .
         echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
         docker push hitian/ss-v2ray-plugin
       env:
